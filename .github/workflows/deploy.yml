@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: ["main"] # Or "master" depending on your branch name
+    branches: ["main"] # Change to "master" if your branch is named master
 
 permissions:
   contents: read
@@ -13,7 +13,7 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps:deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -25,7 +25,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # This is the important part: it points to your src folder!
+          # This uploads only the contents of your src folder
           path: './src'
 
       - name: Deploy to GitHub Pages
