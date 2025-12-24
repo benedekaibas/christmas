@@ -25,7 +25,7 @@ let stack = [
 
 let currentBox = {
     x: 0,
-    y: 50, 
+    y: 100, 
     w: FIXED_WIDTH, 
     color: colors[0]
 };
@@ -35,19 +35,23 @@ function update() {
 
     if (!isFalling) {
         currentBox.x += moveSpeed * direction;
-        if (currentBox.x + currentBox.w > canvas.width || currentBox.x < 0) {
-            direction *= -1;
+        if (currentBox.x + currentBox.w >= canvas.width) {
+            currentBox.x = canvas.width - currentBox.w;
+            direction = -1;
+        } else if (currentBox.x <= 0) {
+            currentBox.x = 0;
+            direction = 1;
         }
     } else {
         currentBox.y += FALL_SPEED;
-        let targetY = stack[stack.length - 1].y - BOX_HEIGHT;
-        if (currentBox.y >= targetY) {
+        let lastBox = stack[stack.length - 1];
+        if (currentBox.y >= lastBox.y - BOX_HEIGHT) {
             checkLanding();
         }
     }
 
     let targetCameraY = (stack.length - 3) * BOX_HEIGHT;
-    if (cameraY < targetCameraY) cameraY += 4;
+    if (cameraY < targetCameraY) cameraY += 5;
 
     draw();
     requestAnimationFrame(update);
@@ -55,16 +59,11 @@ function update() {
 
 function checkLanding() {
     let lastBox = stack[stack.length - 1];
-    const isOverlapping = (currentBox.x + currentBox.w > lastBox.x) && (currentBox.x < lastBox.x + lastBox.w);
+    let overlap = (currentBox.x + currentBox.w > lastBox.x) && (currentBox.x < lastBox.x + lastBox.w);
 
-    if (isOverlapping) {
-        stack.push({
-            x: currentBox.x,
-            y: lastBox.y - BOX_HEIGHT,
-            w: FIXED_WIDTH, 
-            color: currentBox.color
-        });
-
+    if (overlap) {
+        currentBox.y = lastBox.y - BOX_HEIGHT; 
+        stack.push({...currentBox});
         score++;
         scoreElement.innerText = `Presents: ${score} / ${WIN_SCORE}`;
         
@@ -75,19 +74,19 @@ function checkLanding() {
             resetForNextBox();
         }
     } else {
-        if (currentBox.y > canvas.height + cameraY) {
-            alert("Oh no! The present fell! Try again to see your gift.");
-            location.reload();
-        }
+        gameActive = false;
+        alert("Oh no! The present fell! Try again to see your gift.");
+        location.reload();
     }
 }
 
 function resetForNextBox() {
     isFalling = false;
-    currentBox.y = stack[stack.length - 1].y - (BOX_HEIGHT * 4); 
-    currentBox.x = Math.random() * (canvas.width - FIXED_WIDTH);
     currentBox.color = colors[Math.floor(Math.random() * colors.length)];
-    moveSpeed += 0.3; 
+    currentBox.w = FIXED_WIDTH; 
+    currentBox.x = Math.random() * (canvas.width - FIXED_WIDTH);
+    currentBox.y = stack[stack.length - 1].y - (BOX_HEIGHT * 5); 
+    moveSpeed += 0.4; 
 }
 
 function draw() {
@@ -99,7 +98,7 @@ function draw() {
         drawPresent(box.x, box.y, box.w, BOX_HEIGHT, box.color);
     });
 
-    if (score < WIN_SCORE) {
+    if (score < WIN_SCORE && gameActive) {
         drawPresent(currentBox.x, currentBox.y, currentBox.w, BOX_HEIGHT, currentBox.color);
     }
     ctx.restore();
@@ -108,10 +107,12 @@ function draw() {
 function drawPresent(x, y, w, h, color) {
     ctx.fillStyle = color;
     ctx.fillRect(x, y, w, h);
-    ctx.strokeStyle = 'rgba(0,0,0,0.2)';
+    ctx.strokeStyle = 'white';
+    ctx.lineWidth = 2;
     ctx.strokeRect(x, y, w, h);
     ctx.fillStyle = '#f1c40f';
-    ctx.fillRect(x + (w / 2) - 8, y, 16, h);
+    ctx.fillRect(x + (w / 2) - 5, y, 10, h); 
+    ctx.fillRect(x, y + (h / 2) - 5, w, 10); 
 }
 
 const dropAction = (e) => {
@@ -122,6 +123,6 @@ window.addEventListener('mousedown', dropAction);
 window.addEventListener('touchstart', (e) => {
     e.preventDefault();
     dropAction();
-});
+}, { passive: false });
 
 update();
