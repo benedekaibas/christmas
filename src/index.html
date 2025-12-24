@@ -8,27 +8,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
-
     <div id="game-container">
         <div id="ui">
-            <div id="score">Presents Stacked: 0 / 25</div>
-            <div id="message">Tap to Drop the Box!</div>
+            <div id="score">Presents: 0 / 25</div>
+            <div id="message">Tap to drop the present! 🎁</div>
         </div>
-
         <canvas id="gameCanvas"></canvas>
-
         <div id="win-screen" class="hidden">
             <div class="win-content">
                 <h1>Merry Christmas! 🎄</h1>
-                <p>You've successfully stacked the gifts!</p>
+                <p>You did it! Here is your gift:</p>
                 <div class="image-container">
-                    <img src="gift.jpg" alt="Your Present" id="gift-img">
+                    <img src="gift.jpg" alt="Your Present">
                 </div>
-                <p class="footer-msg">Enjoy your gift! 🎁</p>
+                <p class="footer-msg">I hope you liked my game!</p>
+                <button class="retry-btn" onclick="location.reload()">Play Again</button>
             </div>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
