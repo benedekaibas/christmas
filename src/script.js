@@ -7,7 +7,7 @@ canvas.width = Math.min(window.innerWidth, 450);
 canvas.height = window.innerHeight;
 
 let score = 0;
-const WIN_SCORE = 25;
+const WIN_SCORE = 5;
 const BOX_HEIGHT = 60; 
 const FIXED_WIDTH = 70; 
 const FALL_SPEED = 14; 
