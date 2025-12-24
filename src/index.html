@@ -1,15 +1,61 @@
-<div id="win-screen" class="hidden">
-    <div class="win-content">
-        <h1>Merry Christmas! 🎄</h1>
-        <p>You did it! Click the box below to see your surprise:</p>
-        
-        <a href="https://www.treehouses.hu/galeria/" target="_blank">
-            <div class="image-container">
-                <img src="gift.jpg" alt="Click to open your gift!">
-            </div>
-        </a>
-        
-        <p class="footer-msg">We are going here! 🎁</p>
-        <button class="retry-btn" onclick="location.reload()">Play Again</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Christmas Gift Challenge</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Ensuring the image looks like a button */
+        .image-container img {
+            width: 200px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+            cursor: pointer;
+            border: 4px solid #f1c40f;
+        }
+        .image-container img:hover {
+            transform: scale(1.05);
+        }
+        .win-content {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="score">Presents: 0 / 5</div>
+
+    <canvas id="gameCanvas"></canvas>
+
+    <div id="win-screen" class="hidden">
+        <div class="win-content">
+            <h1>Merry Christmas! 🎄</h1>
+            <p>You did it! You stacked all the gifts.</p>
+            <p><strong>Tap the gift below for your surprise:</strong></p>
+            
+            <a href="https://www.treehouses.hu/galeria/" target="_blank">
+                <div class="image-container">
+                    <img src="gift.jpg" alt="Click to open your gift!">
+                </div>
+            </a>
+            
+            <p style="margin-top: 15px; font-weight: bold; color: #c0392b;">
+                Click the photo to see where we're going! 🎁
+            </p>
+            
+            <button class="retry-btn" onclick="location.reload()" style="margin-top: 20px; padding: 10px 20px; cursor: pointer;">
+                Play Again
+            </button>
+        </div>
     </div>
-</div>
+
+    <script src="script.js?v=christmas"></script>
+</body>
+</html>
