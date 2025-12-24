@@ -7,11 +7,11 @@ canvas.width = Math.min(window.innerWidth, 450);
 canvas.height = window.innerHeight;
 
 let score = 0;
-const WIN_SCORE = 12;
+const WIN_SCORE = 25;
 const BOX_HEIGHT = 60; 
-const FIXED_WIDTH = 100; 
-const FALL_SPEED = 12; 
-let moveSpeed = 6;     
+const FIXED_WIDTH = 70; 
+const FALL_SPEED = 14; 
+let moveSpeed = 7;     
 let direction = 1;
 let gameActive = true;
 let isFalling = false;
@@ -87,7 +87,7 @@ function resetForNextBox() {
     currentBox.y = stack[stack.length - 1].y - (BOX_HEIGHT * 4); 
     currentBox.x = Math.random() * (canvas.width - FIXED_WIDTH);
     currentBox.color = colors[Math.floor(Math.random() * colors.length)];
-    moveSpeed += 0.2; 
+    moveSpeed += 0.3; 
 }
 
 function draw() {
