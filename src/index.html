@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Gift Challenge</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="game-container">
+        <div id="ui">
+            <div id="score">Presents Stacked: 0 / 25</div>
+            <div id="message">Tap to Drop the Box!</div>
+        </div>
+
+        <canvas id="gameCanvas"></canvas>
+
+        <div id="win-screen" class="hidden">
+            <div class="win-content">
+                <h1>Merry Christmas! 🎄</h1>
+                <p>You've successfully stacked the gifts!</p>
+                <div class="image-container">
+                    <img src="gift.jpg" alt="Your Present" id="gift-img">
+                </div>
+                <p class="footer-msg">Enjoy your gift! 🎁</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
